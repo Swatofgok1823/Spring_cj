@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name="Usuarios")
 public class Usuarios {
     @Id
-    private int documento;
+    private String documento;
 
     @Column(nullable = false, length = 50)
     private String nombre;
@@ -26,7 +26,7 @@ public class Usuarios {
     public Usuarios() {
     }
 
-    public Usuarios(int documento, String nombre, String apellido, String correo, String password, Rol rol) {
+    public Usuarios(String documento, String nombre, String apellido, String correo, String password, Rol rol) {
         this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -35,11 +35,11 @@ public class Usuarios {
         this.rol = rol;
     }
 
-    public int getDocumento() {
+    public String getDocumento() {
         return documento;
     }
 
-    public void setDocumento(int documento) {
+    public void setDocumento(String documento) {
         this.documento = documento;
     }
 

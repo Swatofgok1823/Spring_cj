@@ -6,5 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UsuariosRepositorio extends JpaRepository<Usuarios, Integer> {
+    // Método para buscar un usuario por su documento
+    Optional<Usuarios> findByDocumento(String documento);
 
+    // Método para eliminar un usuario por su documento
+    void deleteByDocumento(String documento);
 }
