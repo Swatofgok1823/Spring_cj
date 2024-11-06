@@ -1,6 +1,7 @@
 package com.Consultorio_spring.consultorio_spring_sql.Entidades;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="Usuarios")
@@ -22,6 +23,9 @@ public class Usuarios {
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
+
+    @OneToMany(mappedBy = "documentoEstudiante", fetch = FetchType.LAZY)
+    private List<GestionCasos> gestionCasos;
 
     public Usuarios() {
     }

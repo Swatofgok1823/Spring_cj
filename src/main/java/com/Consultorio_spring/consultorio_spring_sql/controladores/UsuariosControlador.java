@@ -27,6 +27,18 @@
             return serviciosUsuarios.getLista();
         }
 
+        @PostMapping("/buscarUsuario")
+        public ResponseEntity<?> buscarUsuarioPorDocumento(@RequestParam String documento) {
+            Optional<Usuarios> usuarioOptional = serviciosUsuarios.buscarPorDocumento(documento);
+
+            if (usuarioOptional.isPresent()) {
+                return ResponseEntity.ok(usuarioOptional.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+            }
+        }
+
+
         @PostMapping("/aggusuarios")
         public String addUsuario(@RequestBody Usuarios usuario) {
             // Verifica si el documento ya existe
@@ -39,6 +51,17 @@
             // Si el documento no existe, agrega el usuario
             serviciosUsuarios.agregar(usuario);
             return "Usuario agregado exitosamente.";
+        }
+
+        @GetMapping("/{documento}")
+        public ResponseEntity<Usuarios> getUsuarioPorDocumento(@PathVariable String documento) {
+            Optional<Usuarios> usuarioOptional = serviciosUsuarios.buscarPorDocumento(documento);
+
+            if (usuarioOptional.isPresent()) {
+                return ResponseEntity.ok(usuarioOptional.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }
 
         @DeleteMapping("/{documento}")

@@ -19,7 +19,7 @@ public class Servicios_Usuarios {
     }
 
     public Optional<Usuarios> buscarPorDocumento(String documento) {
-        return usuariosRepositorio.findById(Integer.valueOf(documento));
+        return usuariosRepositorio.findById(documento);
     }
 
     public void agregar(Usuarios user) {
@@ -27,17 +27,16 @@ public class Servicios_Usuarios {
     }
 
     public void deleteUsuario(String documento) {
-        usuariosRepositorio.deleteById(Integer.valueOf(documento));
+        usuariosRepositorio.deleteById(documento);
     }
 
     public Usuarios getUsuarioPorDocumento(String documento) {
-        return usuariosRepositorio.findById(Integer.valueOf(documento)).orElse(null);
+        return usuariosRepositorio.findById(documento).orElse(null);
     }
-
 
     public Usuarios login(String documento, String password, String rol) {
         // Buscar el usuario por documento
-        Usuarios usuario = usuariosRepositorio.findById(Integer.valueOf(documento)).orElse(null);
+        Usuarios usuario = usuariosRepositorio.findById(documento).orElse(null);
 
         // Verificar si el usuario existe y si la contraseña es correcta y si el rol coincide
         if (usuario != null && usuario.getPassword().equals(password) && usuario.getRol().name().equals(rol)) {
@@ -49,7 +48,7 @@ public class Servicios_Usuarios {
 
     public Usuarios login(String documento, String password) {
         // Buscar el usuario por documento
-        Usuarios usuario = usuariosRepositorio.findById(Integer.valueOf(documento)).orElse(null);
+        Usuarios usuario = usuariosRepositorio.findById(documento).orElse(null);
 
         // Verificar si el usuario existe y si la contraseña es correcta
         if (usuario != null && usuario.getPassword().equals(password)) {
@@ -57,10 +56,5 @@ public class Servicios_Usuarios {
         }
         return null; // Retornar null si las credenciales son incorrectas
     }
-
-
-
-
-
 
 }
