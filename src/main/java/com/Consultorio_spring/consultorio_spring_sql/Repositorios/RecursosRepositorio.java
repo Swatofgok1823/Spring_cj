@@ -10,4 +10,7 @@ import java.util.List;
 public interface RecursosRepositorio extends JpaRepository<RecursosLegales, Integer> {
 
     List<RecursosLegales> findAll();
+
 }
+
+

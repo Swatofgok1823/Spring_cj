@@ -32,6 +32,7 @@ public class RecursosControlador {
         return "Usuario agregado exitosamente.";
     }
 
+
     @PutMapping("/modificar/{id}")
     public String updateRecurso(@PathVariable int id, @RequestBody RecursosLegales recurso) {
         return servi.modificar(id, recurso);
@@ -43,3 +44,6 @@ public class RecursosControlador {
     }
 
 }
+
+
+

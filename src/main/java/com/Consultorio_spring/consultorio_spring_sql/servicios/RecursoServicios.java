@@ -21,6 +21,7 @@ public class RecursoServicios {
         repositori.save(recurso); // Guarda el usuario en la base de datos
     }
 
+
     public String modificar(int id, RecursosLegales recursoActualizado) {
         return repositori.findById(id).map(recurso -> {
             recurso.setNombreRecurso(recursoActualizado.getNombreRecurso());
@@ -44,3 +45,5 @@ public class RecursoServicios {
 
 
 }
+
+
