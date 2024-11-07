@@ -30,4 +30,26 @@ public class GestionCasosServicios {
     public List<GestionCasos> consultarPorDocumento(String documento) {
         return repository.findByDocumentoUsuarioOrTipoCaso(documento, documento);
     }
+
+    public boolean eliminarCaso(String numeroCaso) {
+        if (repository.existsById(numeroCaso)) {
+            repository.deleteById(numeroCaso);
+            return true;
+        }
+        return false;
+    }
+
+    // Método para actualizar un caso existente
+    public Optional<GestionCasos> actualizarCaso(String numeroCaso, GestionCasos casoActualizado) {
+        return repository.findById(numeroCaso).map(caso -> {
+            caso.setNombreUsuario(casoActualizado.getNombreUsuario());
+            caso.setApellidoUsuario(casoActualizado.getApellidoUsuario());
+            caso.setDocumentoUsuario(casoActualizado.getDocumentoUsuario());
+            caso.setTipoCaso(casoActualizado.getTipoCaso());
+            caso.setEstadoCas(casoActualizado.getEstadoCas());
+            caso.setLinkCarpeta(casoActualizado.getLinkCarpeta());
+            caso.setDocumentoEstudiante(casoActualizado.getDocumentoEstudiante());
+            return repository.save(caso);
+        });
+    }
 }

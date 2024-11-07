@@ -54,4 +54,21 @@ public class GestionCasosControlador {
         }
         return ResponseEntity.ok(casosFiltrados);
     }
+
+    @DeleteMapping("/eliminar/{numeroCaso}")
+    public ResponseEntity<String> eliminarCaso(@PathVariable String numeroCaso) {
+        if (gestionCasosServicios.eliminarCaso(numeroCaso)) {
+            return ResponseEntity.ok("Caso eliminado exitosamente.");
+        } else {
+            return new ResponseEntity<>("Caso no encontrado.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Endpoint para actualizar un caso por número de caso
+    @PutMapping("/actualizar/{numeroCaso}")
+    public ResponseEntity<GestionCasos> actualizarCaso(@PathVariable String numeroCaso, @RequestBody GestionCasos casoActualizado) {
+        Optional<GestionCasos> casoOptional = gestionCasosServicios.actualizarCaso(numeroCaso, casoActualizado);
+        return casoOptional.map(caso -> new ResponseEntity<>(caso, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }
