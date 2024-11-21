@@ -1,10 +1,8 @@
 package com.Consultorio_spring.consultorio_spring_sql.Entidades;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="Recursos")
@@ -12,18 +10,24 @@ public class RecursosLegales {
     @Id
     private int id_documento;
 
-    @Column(nullable = false,length = 55)
+    @Column(nullable = false, length = 55)
     private String nombreRecurso;
 
 
-    @Column(nullable = false,length = 250)
+    @Column(nullable = false, length = 250)
     private String descripcion;
 
-    @Column(nullable = false,length = 55)
+    @Column(nullable = false, length = 55)
     private String tipo;
 
-    @Column(nullable = false,length = 254)
+    @Column(nullable = false, length = 254)
     private String url;
+
+    @ManyToOne(targetEntity = Usuarios.class)
+    @JsonIgnore
+    private Usuarios documentoUsuario;
+
+
 
     public RecursosLegales() {
     }

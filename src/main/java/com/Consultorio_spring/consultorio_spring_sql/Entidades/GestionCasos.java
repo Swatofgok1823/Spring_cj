@@ -3,8 +3,10 @@ package com.Consultorio_spring.consultorio_spring_sql.Entidades;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name="gestionCasos")
+@Table(name="gestion_casos")
 public class GestionCasos {
     @Id
     private String numeroCaso;
@@ -27,14 +29,15 @@ public class GestionCasos {
     @Column(nullable = false, length = 250)
     private String linkCarpeta;
 
-    // Relación con la entidad Usuarios (muchos a uno)
-    @Column(name = "documentoEstudiante", nullable = false, length = 100)
-    private String documentoEstudiante;
+    @ManyToOne(targetEntity = Usuarios.class)
+    @JsonIgnore
+    private Usuarios documentoEstudiante;
+
 
     public GestionCasos() {
     }
 
-    public GestionCasos(String numeroCaso, String nombreUsuario, String apellidoUsuario, String documentoUsuario, String tipoCaso, EstadoCas estadoCas, String linkCarpeta, String documentoEstudiante) {
+    public GestionCasos(String numeroCaso, String nombreUsuario, String apellidoUsuario, String documentoUsuario, String tipoCaso, EstadoCas estadoCas, String linkCarpeta, Usuarios documentoEstudiante) {
         this.numeroCaso = numeroCaso;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;
@@ -101,11 +104,11 @@ public class GestionCasos {
         this.linkCarpeta = linkCarpeta;
     }
 
-    public String getDocumentoEstudiante() {
+    public Usuarios getDocumentoEstudiante() {
         return documentoEstudiante;
     }
 
-    public void setDocumentoEstudiante(String documentoEstudiante) {
+    public void setDocumentoEstudiante(Usuarios documentoEstudiante) {
         this.documentoEstudiante = documentoEstudiante;
     }
 
@@ -119,7 +122,7 @@ public class GestionCasos {
                 ", tipoCaso='" + tipoCaso + '\'' +
                 ", estadoCas=" + estadoCas +
                 ", linkCarpeta='" + linkCarpeta + '\'' +
-                ", documentoEstudiante='" + documentoEstudiante + '\'' +
+                ", documentoEstudiante=" + documentoEstudiante +
                 '}';
     }
 }

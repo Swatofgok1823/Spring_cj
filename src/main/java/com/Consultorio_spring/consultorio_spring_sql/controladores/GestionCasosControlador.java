@@ -23,14 +23,34 @@ public class GestionCasosControlador {
     @Autowired
     private Servicios_Usuarios serviciosUsuarios;
 
+
     @PostMapping("/insertar")
     public ResponseEntity<GestionCasos> registrarCaso(@RequestBody GestionCasos caso) {
-        // Busca al usuario por el documento del estudiante
-        Optional<Usuarios> usuarioOptional = serviciosUsuarios.buscarPorDocumento(caso.getDocumentoEstudiante());
+        // Busca al usuario por el documento del estudiante en la entidad Usuarios
+        Optional<Usuarios> usuarioOptional = serviciosUsuarios.buscarPorDocumento(caso.getDocumentoUsuario());
 
         if (usuarioOptional.isPresent()) {
-            // Asignamos el documentoEstudiante a la entidad GestionCasos
-            caso.setDocumentoEstudiante(caso.getDocumentoEstudiante());
+            // Asigna el objeto Usuarios al campo documentoEstudiante en GestionCasos
+            caso.setDocumentoEstudiante(usuarioOptional.get());
+
+            // Guarda el nuevo caso en la base de datos
+            GestionCasos nuevoCaso = gestionCasosServicios.insertarCaso(caso);
+            return new ResponseEntity<>(nuevoCaso, HttpStatus.CREATED);
+        } else {
+            // Si el usuario no está registrado, retorna un error 404
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    /*@PostMapping("/insertar")
+    public ResponseEntity<GestionCasos> registrarCaso(@RequestBody GestionCasos caso) {
+        // Busca al usuario por el documento del estudiante
+        Optional<Usuarios> usuarioOptional = serviciosUsuarios.buscarPorDocumento(caso.getDocumentoUsuario());
+
+        if (usuarioOptional.isPresent()) {
+            // Asignamos el objeto Usuarios al campo documentoEstudiante en GestionCasos
+            caso.setDocumentoEstudiante(usuarioOptional.get());
             // Guarda el nuevo caso
             GestionCasos nuevoCaso = gestionCasosServicios.insertarCaso(caso);
             return new ResponseEntity<>(nuevoCaso, HttpStatus.CREATED);
@@ -39,6 +59,7 @@ public class GestionCasosControlador {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+*/
 
     @GetMapping("/consultarLista")
     public ResponseEntity<List<GestionCasos>> consultarListaCasos() {

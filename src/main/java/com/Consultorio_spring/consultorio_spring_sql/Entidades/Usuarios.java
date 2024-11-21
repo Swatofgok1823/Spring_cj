@@ -24,8 +24,12 @@ public class Usuarios {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    @OneToMany(mappedBy = "documentoEstudiante", fetch = FetchType.LAZY)
+
+    @OneToMany(targetEntity = GestionCasos.class,fetch = FetchType.LAZY, mappedBy = "documentoEstudiante")
     private List<GestionCasos> gestionCasos;
+
+    @OneToMany(targetEntity = RecursosLegales.class,fetch = FetchType.LAZY, mappedBy = "documentoUsuario")
+    private List<RecursosLegales> recursoslegales;
 
     public Usuarios() {
     }
