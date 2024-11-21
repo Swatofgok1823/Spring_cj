@@ -34,6 +34,8 @@ public class Usuarios {
     public Usuarios() {
     }
 
+
+
     public Usuarios(String documento, String nombre, String apellido, String correo, String password, Rol rol) {
         this.documento = documento;
         this.nombre = nombre;
@@ -41,6 +43,22 @@ public class Usuarios {
         this.correo = correo;
         this.password = password;
         this.rol = rol;
+    }
+
+    public List<GestionCasos> getGestionCasos() {
+        return gestionCasos;
+    }
+
+    public void setGestionCasos(List<GestionCasos> gestionCasos) {
+        this.gestionCasos = gestionCasos;
+    }
+
+    public List<RecursosLegales> getRecursoslegales() {
+        return recursoslegales;
+    }
+
+    public void setRecursoslegales(List<RecursosLegales> recursoslegales) {
+        this.recursoslegales = recursoslegales;
     }
 
     public String getDocumento() {

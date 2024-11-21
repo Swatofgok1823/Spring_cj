@@ -1,7 +1,9 @@
 package com.Consultorio_spring.consultorio_spring_sql.controladores;
 
+import com.Consultorio_spring.consultorio_spring_sql.DTO.CasosRequest;
 import com.Consultorio_spring.consultorio_spring_sql.Entidades.GestionCasos;
 import com.Consultorio_spring.consultorio_spring_sql.Entidades.Usuarios;
+import com.Consultorio_spring.consultorio_spring_sql.Repositorios.UsuariosRepositorio;
 import com.Consultorio_spring.consultorio_spring_sql.servicios.GestionCasosServicios;
 import com.Consultorio_spring.consultorio_spring_sql.servicios.Servicios_Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,16 @@ import java.util.Optional;
 public class GestionCasosControlador {
 
     @Autowired
+    UsuariosRepositorio usuariosRepositorio;
+
+    @Autowired
     private GestionCasosServicios gestionCasosServicios;
 
     @Autowired
     private Servicios_Usuarios serviciosUsuarios;
 
 
-    @PostMapping("/insertar")
+    /*@PostMapping("/insertar")
     public ResponseEntity<GestionCasos> registrarCaso(@RequestBody GestionCasos caso) {
         // Busca al usuario por el documento del estudiante en la entidad Usuarios
         Optional<Usuarios> usuarioOptional = serviciosUsuarios.buscarPorDocumento(caso.getDocumentoUsuario());
@@ -40,7 +45,34 @@ public class GestionCasosControlador {
             // Si el usuario no está registrado, retorna un error 404
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }*/
+
+    @PostMapping("/insertar")
+    public ResponseEntity<GestionCasos> addUsuario(@RequestBody GestionCasos casos) {
+        // Verifica si el caso ya existe
+        for (GestionCasos u : gestionCasosServicios.consultarListaCasos().toArray(new GestionCasos[0])) {
+            if (u.getNumeroCaso().equals(casos.getNumeroCaso())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(null); // Devuelve un estado 409 si el caso ya existe
+            }
+        }
+
+        // Si el caso no existe, agrega el caso
+        gestionCasosServicios.insertarCaso(casos);
+        return ResponseEntity.status(HttpStatus.CREATED).body(casos); // Devuelve el caso agregado con un estado 201
     }
+
+
+
+
+    /*@PostMapping("/insertar")
+    public GestionCasos crearCaso(@RequestBody CasosRequest caso){
+        String documentoEstudiante = caso.getDocumentoEstudiante();
+        Optional<Usuarios> usuarios = serviciosUsuarios.getUsuariosById(documentoEstudiante);
+        GestionCasos crearCaso = caso.getCaso();
+        return gestionCasosServicios.crearCaso(crearCaso, usuarios);
+    }*/
+
+
 
 
     /*@PostMapping("/insertar")

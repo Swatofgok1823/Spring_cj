@@ -37,6 +37,8 @@ public class GestionCasos {
     public GestionCasos() {
     }
 
+
+
     public GestionCasos(String numeroCaso, String nombreUsuario, String apellidoUsuario, String documentoUsuario, String tipoCaso, EstadoCas estadoCas, String linkCarpeta, Usuarios documentoEstudiante) {
         this.numeroCaso = numeroCaso;
         this.nombreUsuario = nombreUsuario;
@@ -45,7 +47,7 @@ public class GestionCasos {
         this.tipoCaso = tipoCaso;
         this.estadoCas = estadoCas;
         this.linkCarpeta = linkCarpeta;
-        this.documentoEstudiante = documentoEstudiante; // Se pasa como String
+        this.documentoEstudiante = documentoEstudiante;
     }
 
     public String getNumeroCaso() {

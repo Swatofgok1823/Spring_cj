@@ -1,6 +1,7 @@
 package com.Consultorio_spring.consultorio_spring_sql.servicios;
 
 import com.Consultorio_spring.consultorio_spring_sql.Entidades.GestionCasos;
+import com.Consultorio_spring.consultorio_spring_sql.Entidades.Usuarios;
 import com.Consultorio_spring.consultorio_spring_sql.Repositorios.GestionCasoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class GestionCasosServicios {
     private GestionCasoRepositorio repository;
 
     public GestionCasos insertarCaso(GestionCasos caso) {
+        return repository.save(caso);
+    }
+
+    public GestionCasos crearCaso(GestionCasos caso, Optional<Usuarios> usuario) {
+        usuario.ifPresent(caso:: setDocumentoEstudiante);
         return repository.save(caso);
     }
 

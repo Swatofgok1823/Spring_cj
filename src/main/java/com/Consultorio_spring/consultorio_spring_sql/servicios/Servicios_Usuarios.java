@@ -22,6 +22,11 @@ public class Servicios_Usuarios {
         return usuariosRepositorio.findById(documento);
     }
 
+    public Optional<Usuarios> getUsuariosById(String documento) {
+        return usuariosRepositorio.findById(documento);
+    }
+
+
     public void agregar(Usuarios user) {
         usuariosRepositorio.save(user); // Guarda el usuario en la base de datos
     }
